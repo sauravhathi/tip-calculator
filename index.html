@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Tip Calculator</title>
+    <style>
+
+      body{
+        /* https://unsplash.com/photos/Ciqxn7FE4vE */
+        background-image: url('bg.jpg');
+        box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
+      }
+
+      @keyframes animate {
+        0% {
+          opacity: 0;
+          transform: translateY(-100px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate {
+        animation: animate 0.5s ease-in-out;
+      }
+
+      /* chrome, safari, opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+
+      .text-2xl-bold {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .text-3xl-bold {
+        font-size: 1.875rem;
+        font-weight: 700;
+      }
+
+      .input {
+        border: 2px solid #d1d5db;
+        padding: 0.25rem;
+        text-align: center;
+        outline: none;
+        border-color: #d1d5db;
+      }
+
+      .input:focus {
+        border-color: blue;
+      }
+
+      .btn {
+        padding: 0.25rem 1rem;
+        background-color: #d1d5db;
+        font-weight: 700;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #e5e7eb;
+        opacity: 0.5;
+      }
+
+      .calc {
+        background-color: #0f172a;
+        color: white;
+        font-weight: 700;
+        padding: 0.5rem 1rem;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+
+      .calc:hover {
+        color: #cbd5e1;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .per-person{
+        font-size: 0.90rem;
+      }
+
+    </style>
+  </head>
+  <body class="text-white">
+    <div class="h-screen grid content-center justify-items-center gap-4">
+      <h1 class="text-3xl-bold">Tip Calculator</h1>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-4 rounded-md text-slate-900"
+      >
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col">
+            <label for="bill" class="text-md font-semibold">Bill</label>
+            <input type="number" id="bill" value="0.00" class="input" />
+          </div>
+          <div class="flex flex-col">
+            <label for="tip" class="text-md font-semibold">Tip %</label>
+            <div class="flex">
+              <button id="tip-decrement" class="btn">-</button>
+              <input type="text" id="tip" value="5%" class="input" />
+              <button id="tip-increment" class="btn">+</button>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="people" class="text-md font-semibold"
+              >Number of People</label
+            >
+            <div class="flex">
+              <button id="people-decrement" class="btn">-</button>
+              <input type="number" id="people" value="1" class="input" />
+              <button id="people-increment" class="btn">+</button>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <button id="calculate" onclick="calculate()" class="calc">
+              Calculate
+            </button>
+          </div>
+        </div>
+        <div>
+          <div id="result" class="flex flex-col gap-4">
+            <div>
+              <h2 class="text-md font-semibold">Tip Amount</h2>
+              <span class="per-person hidden">per person</span>
+              <p id="tip-amount" class="text-2xl-bold">₹0.00</p>
+            </div>
+            <div>
+              <h2 class="text-md font-semibold">Total</h2>
+              <span class="per-person hidden">per person</span>
+              <p id="total" class="text-3xl-bold">₹0.00</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <span class="text-md bg-slate-50 text-slate-900 font-semibold py-1 px-4 rounded-md flex items-center gap-2">
+        <img src="https://avatars.githubusercontent.com/u/61316762?v=4" class="w-10 h-10 rounded-full" alt="github" />
+        Code by <a href="https://github.com/sauravhathi">@sauravhathi</a>
+      </span>
+    </div>
+  </body>
+  <script>
+    const bill = document.getElementById("bill");
+    const tip = document.getElementById("tip");
+    const people = document.getElementById("people");
+    const tipAmount = document.getElementById("tip-amount");
+    const total = document.getElementById("total");
+    const tipDecrement = document.getElementById("tip-decrement");
+    const tipIncrement = document.getElementById("tip-increment");
+    const peopleDecrement = document.getElementById("people-decrement");
+    const peopleIncrement = document.getElementById("people-increment");
+    const perPerson = document.querySelectorAll(".per-person");
+    const result = document.getElementById("result");
+
+    function calculate() {
+      let tipValue = tip.value;
+      let tipPercentage = tipValue.slice(0, tipValue.length - 1);
+      let tipAmountValue = (bill.value * tipPercentage) / 100;
+      let totalValue = Number(bill.value) + Number(tipAmountValue);
+      let tipAmountPerPerson = tipAmountValue / people.value;
+      let totalPerPerson = totalValue / people.value;
+
+      if (tipPercentage === "" || bill.value === "" || people.value === "") {
+        alert("Please fill all the fields");
+      }
+      else if(bill.value === "0.00"){
+        alert("Bill cannot be zero");
+      }
+      else if (people.value > 1) {
+        tipAmount.innerHTML = `₹${tipAmountPerPerson.toFixed(2)}`;
+        total.innerHTML = `₹${totalPerPerson.toFixed(2)}`;
+        perPerson.forEach((person) => {
+          person.classList.remove("hidden");
+        });
+        result.classList.add("animate");
+
+        setTimeout(() => {
+          result.classList.remove("animate");
+        }, 500);
+      } else {
+        tipAmount.innerHTML = `₹${tipAmountValue.toFixed(2)}`;
+        total.innerHTML = `₹${totalValue.toFixed(2)}`;
+        perPerson.forEach((person) => {
+          person.classList.add("hidden");
+        });
+        result.classList.add("animate");
+
+        setTimeout(() => {
+          result.classList.remove("animate");
+        }, 500);
+      }
+
+    }
+
+    tipDecrement.addEventListener("click", () => {
+      let tipValue = tip.value;
+      let tipPercentage = tipValue.slice(0, tipValue.length - 1);
+      if (tipPercentage > 0) {
+        tipPercentage--;
+        tip.value = `${tipPercentage}%`;
+      }
+    });
+
+    tipIncrement.addEventListener("click", () => {
+      let tipValue = tip.value;
+      let tipPercentage = tipValue.slice(0, tipValue.length - 1);
+      if (tipPercentage < 100) {
+        tipPercentage++;
+        tip.value = `${tipPercentage}%`;
+      }
+    });
+
+    peopleDecrement.addEventListener("click", () => {
+      if (people.value > 1) {
+        people.value--;
+      }
+    });
+
+    peopleIncrement.addEventListener("click", () => {
+      people.value++;
+    });
+
+    bill.addEventListener("input", () => {
+      calculate();
+    });
+
+    tip.addEventListener("input", () => {
+      calculate();
+    });
+
+    people.addEventListener("input", () => {
+      calculate();
+    });
+
+    tipDecrement.addEventListener("click", () => {
+      calculate();
+    });
+
+    tipIncrement.addEventListener("click", () => {
+      calculate();
+    });
+
+    peopleDecrement.addEventListener("click", () => {
+      calculate();
+    });
+
+    peopleIncrement.addEventListener("click", () => {
+      calculate();
+    });
+
+  </script>
+</html>
