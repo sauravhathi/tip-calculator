@@ -4,6 +4,8 @@ A simple tip calculator built with HTML, CSS and JavaScript. It is a simple proj
 
 ## Demo
 
+https://github.com/sauravhathi/tip-calculator/blob/master/sc.gif
+
 ### [https://sauravhathi.github.io/tip-calculator](https://sauravhathi.github.io/tip-calculator/)
 
 ![image](https://user-images.githubusercontent.com/61316762/201880961-f8c3cf88-5e45-4fa3-889e-fecf6c86b29e.png)
