@@ -1,0 +1,90 @@
+body{
+    /* https://unsplash.com/photos/Ciqxn7FE4vE */
+    background-image: url('bg.jpg');
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
+  }
+
+  @keyframes animate {
+    0% {
+      opacity: 0;
+      transform: translateY(-100px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate {
+    animation: animate 0.5s ease-in-out;
+  }
+
+  /* chrome, safari, opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  .text-2xl-bold {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .text-3xl-bold {
+    font-size: 1.875rem;
+    font-weight: 700;
+  }
+
+  .input {
+    border: 2px solid #d1d5db;
+    padding: 0.25rem;
+    text-align: center;
+    outline: none;
+    border-color: #d1d5db;
+  }
+
+  .input:focus {
+    border-color: blue;
+  }
+
+  .btn {
+    padding: 0.25rem 1rem;
+    background-color: #d1d5db;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: #e5e7eb;
+    opacity: 0.5;
+  }
+
+  .calc {
+    background-color: #0f172a;
+    color: white;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .calc:hover {
+    color: #cbd5e1;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .per-person{
+    font-size: 0.90rem;
+  }
